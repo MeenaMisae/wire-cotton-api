@@ -15,7 +15,7 @@ return new class extends Migration
             $table->mediumIncrements('id');
             $table->unsignedMediumInteger('attribute_id');
 
-            $table->string('name');
+            $table->string('value');
 
             $table->foreign('attribute_id')->references('id')->on('attributes')->onDelete('RESTRICT');
             $table->timestamps();
