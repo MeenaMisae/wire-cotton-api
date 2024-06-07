@@ -15,9 +15,9 @@ return new class extends Migration
             $table->mediumIncrements('id');
             $table->unsignedMediumInteger('product_id');
 
-            $table->string('sku')->unique();
+            $table->string('code')->unique();
             $table->decimal('price');
-            
+
             $table->foreign('product_id')->references('id')->on('products')->onDelete('RESTRICT');
             $table->timestamps();
         });
