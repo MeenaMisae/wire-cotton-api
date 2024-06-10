@@ -8,4 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class AttributeOptionSku extends Model
 {
     use HasFactory;
+    protected $fillable = ['attribute_option_id', 'sku_id'];
 }
