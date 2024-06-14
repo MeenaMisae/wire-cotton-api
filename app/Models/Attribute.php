@@ -37,6 +37,6 @@ class Attribute extends Model
 
     public function categories(): BelongsToMany
     {
-        return $this->belongsToMany(AttributeCategory::class, 'attribute_category');
+        return $this->belongsToMany(AttributeCategory::class, 'attribute_categories');
     }
 }
