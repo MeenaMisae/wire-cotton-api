@@ -32,7 +32,7 @@ class AttributeCategorySeeder extends Seeder
                     $parentCategory = Category::firstOrCreate([
                         'parent_id' => null,
                         'name' => $parent
-                        ]);
+                    ]);
                     foreach ($children as $child) :
                         $childCategory = Category::firstOrCreate([
                             'parent_id' => $parentCategory->id,
