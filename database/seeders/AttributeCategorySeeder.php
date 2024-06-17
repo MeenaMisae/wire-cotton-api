@@ -22,8 +22,8 @@ class AttributeCategorySeeder extends Seeder
         ];
 
         $parentCategories = [
-            'Feminino' => ['Roupas', 'Acessórios'],
-            'Masculino' => ['Roupas', 'Acessórios']
+            'Feminino' => ['Blusas', 'Vestidos', 'Saias'],
+            'Masculino' => ['Camisetas', 'Bermudas', 'Calças', 'Regatas']
         ];
 
         try {
