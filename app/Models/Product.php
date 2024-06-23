@@ -4,9 +4,10 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 /**
- * 
+ *
  *
  * @property int $id
  * @property int $category_id
@@ -31,4 +32,9 @@ class Product extends Model
 {
     use HasFactory;
     protected $fillable = ['category_id', 'name', 'description', 'slug'];
+
+    public function sales(): BelongsToMany
+    {
+        return $this->belongsToMany(Sale::class, 'product_sales');
+    }
 }
