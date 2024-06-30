@@ -7,18 +7,17 @@ use App\Models\Sku;
 use App\Models\Sale;
 use App\Models\Product;
 use Illuminate\Support\Str;
-use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ProductStoreRequest;
 use App\Models\AttributeOptionSku;
 use App\Models\ProductImage;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
-    public function store(Request $request): JsonResponse
+    public function store(ProductStoreRequest $request): JsonResponse
     {
         try {
             $createdProduct = Product::create([
