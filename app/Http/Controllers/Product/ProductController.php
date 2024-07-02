@@ -7,17 +7,19 @@ use App\Models\Sku;
 use App\Models\Sale;
 use App\Models\Product;
 use Illuminate\Support\Str;
+use App\Models\ProductImage;
 use Illuminate\Http\JsonResponse;
+use App\Models\AttributeOptionSku;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\ProductStoreRequest;
-use App\Models\AttributeOptionSku;
-use App\Models\ProductImage;
 use Illuminate\Support\Facades\Storage;
+use App\Http\Requests\StoreProductRequest;
+use App\Http\Requests\StoreProductInfoRequest;
+use App\Http\Requests\StoreProductImageRequest;
 
 class ProductController extends Controller
 {
-    public function store(ProductStoreRequest $request): JsonResponse
+    public function store(StoreProductRequest $request): JsonResponse
     {
         try {
             $createdProduct = Product::create([
@@ -77,5 +79,15 @@ class ProductController extends Controller
             Log::error('Erro na criação do produto', ['error' => $e->getMessage(), 'line' => $e->getLine()]);
             return response()->json(['response' => 'Erro na criação do produto'], 400);
         }
+    }
+
+    public function validateInfo(StoreProductInfoRequest $request)
+    {
+        return response()->json(['response' => $request->all()]);
+    }
+
+    public function validateImages(StoreProductImageRequest $request)
+    {
+        return response()->json(['response' => $request->all()]);
     }
 }
