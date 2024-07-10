@@ -17,12 +17,12 @@ class AttributeCategorySeeder extends Seeder
     public function run(): void
     {
         $attributes = [
-            'Cor' => ['Vermelho', 'Branco', 'Preto'],
+            'Cor' => ['Vermelho', 'Branco', 'Preto', 'Cinza'],
             'Tamanho' => ['PP', 'P', 'M', 'G', 'GG', 'XGG']
         ];
 
         $parentCategories = [
-            'Feminino' => ['Blusas', 'Vestidos', 'Saias'],
+            'Feminino' => ['Blusas', 'Vestidos', 'Saias', 'Shorts'],
             'Masculino' => ['Camisetas', 'Bermudas', 'Calças', 'Regatas']
         ];
 
