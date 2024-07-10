@@ -16,9 +16,10 @@ return new class extends Migration
             $table->unsignedMediumInteger('product_id');
 
             $table->string('code')->unique();
+            $table->integer('quantity');
             $table->decimal('price');
 
-            $table->foreign('product_id')->references('id')->on('products')->onDelete('RESTRICT');
+            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
             $table->timestamps();
         });
     }
