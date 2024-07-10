@@ -17,7 +17,7 @@ return new class extends Migration
 
             $table->string('value');
 
-            $table->foreign('attribute_id')->references('id')->on('attributes')->onDelete('RESTRICT');
+            $table->foreign('attribute_id')->references('id')->on('attributes')->onDelete('cascade');
             $table->timestamps();
         });
     }
