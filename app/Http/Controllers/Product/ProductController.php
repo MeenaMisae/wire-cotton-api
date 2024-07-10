@@ -19,6 +19,35 @@ use App\Http\Requests\StoreProductImageRequest;
 
 class ProductController extends Controller
 {
+    public function index(): JsonResponse
+    {
+        $response = [];
+        foreach (Product::all() as $product) :
+            $images = $product->images->map(function ($image) {
+                return Storage::disk('s3')->temporaryUrl("admin/products/$image->hash", now()->addMinutes(5));
+            });
+            $productData = $product->toArray();
+            unset($productData['images']);
+            $inventoryStatus = match (true) {
+                $product->quantity === 0 => 'FORA DE ESTOQUE',
+                $product->quantity <= 5 => 'BAIXO ESTOQUE',
+                $product->quantity >= 10 => 'EM ESTOQUE',
+            };
+            $response[] = [
+                'id' => $product->id,
+                'code' => $product->sku->code,
+                'price' => $product->sku->price,
+                'quantity' => $product->sku->quantity,
+                'category' => $product->categories->name,
+                'name' => $product->name,
+                'inventoryStatus' => $inventoryStatus,
+                'description' => $product->description,
+                'images' => $images
+            ];
+        endforeach;
+        return response()->json($response);
+    }
+
     public function store(StoreProductRequest $request): JsonResponse
     {
         try {
@@ -48,7 +77,8 @@ class ProductController extends Controller
                 $createdSku =  Sku::create([
                     'product_id' => $createdProduct->id,
                     'code' => Str::random(10),
-                    'price' => $request->input('finalPrice')
+                    'price' => $request->input('finalPrice'),
+                    'quantity' => $request->input('quantity')
                 ]);
                 foreach (json_decode($request->input('attributeOptions')) as $option) :
                     if (isset($option)) :
@@ -64,7 +94,8 @@ class ProductController extends Controller
             $createdSku =  Sku::create([
                 'product_id' => $createdProduct->id,
                 'code' => Str::random(10),
-                'price' => $request->input('amount')
+                'price' => $request->input('amount'),
+                'quantity' => $request->input('quantity')
             ]);
             foreach (json_decode($request->input('attributeOptions')) as $option) :
                 if (isset($option)) :
@@ -81,12 +112,18 @@ class ProductController extends Controller
         }
     }
 
-    public function validateInfo(StoreProductInfoRequest $request)
+    public function destroy(Product $product): JsonResponse
+    {
+        $product->delete();
+        return response()->json(['response' => 'Produto apagado com sucesso']);
+    }
+
+    public function validateInfo(StoreProductInfoRequest $request): JsonResponse
     {
         return response()->json(['response' => $request->all()]);
     }
 
-    public function validateImages(StoreProductImageRequest $request)
+    public function validateImages(StoreProductImageRequest $request): JsonResponse
     {
         return response()->json(['response' => $request->all()]);
     }
