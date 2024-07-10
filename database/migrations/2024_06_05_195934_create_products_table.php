@@ -18,7 +18,7 @@ return new class extends Migration
             $table->text('description');
             $table->string('slug');
 
-            $table->foreign('category_id')->references('id')->on('categories')->onDelete('RESTRICT');
+            $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
             $table->timestamps();
         });
     }
