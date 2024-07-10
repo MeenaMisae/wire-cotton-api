@@ -16,8 +16,8 @@ return new class extends Migration
             $table->unsignedMediumInteger('category_id');
             $table->unsignedMediumInteger('attribute_id');
 
-            $table->foreign('category_id')->references('id')->on('categories')->onDelete('RESTRICT');
-            $table->foreign('attribute_id')->references('id')->on('attributes')->onDelete('RESTRICT');
+            $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
+            $table->foreign('attribute_id')->references('id')->on('attributes')->onDelete('cascade');
             $table->timestamps();
         });
     }
