@@ -16,8 +16,8 @@ return new class extends Migration
             $table->unsignedMediumInteger('attribute_option_id');
             $table->unsignedMediumInteger('sku_id');
 
-            $table->foreign('attribute_option_id')->references('id')->on('attribute_options')->onDelete('RESTRICT');
-            $table->foreign('sku_id')->references('id')->on('skus')->onDelete('RESTRICT');
+            $table->foreign('attribute_option_id')->references('id')->on('attribute_options')->onDelete('cascade');
+            $table->foreign('sku_id')->references('id')->on('skus')->onDelete('cascade');
             $table->timestamps();
         });
     }
