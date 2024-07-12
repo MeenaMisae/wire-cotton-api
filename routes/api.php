@@ -14,6 +14,8 @@ Route::prefix('products')->group(static function () {
     Route::get('', [ProductController::class, 'index']);
     Route::get('categories', [CategoryController::class, 'index']);
     Route::get('attributes/{categoryId}', [AttributeController::class, 'getCategoryAttributes']);
+    Route::get('{product}', [ProductController::class, 'edit']);
+    Route::put('{product}', [ProductController::class, 'update']);
     Route::post('', [ProductController::class, 'store']);
     Route::delete('{product}', [ProductController::class, 'destroy']);
     Route::post('validate-info', [ProductController::class, 'validateInfo']);
