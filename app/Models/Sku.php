@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 /**
  *
@@ -29,4 +30,10 @@ class Sku extends Model
 {
     use HasFactory;
     protected $fillable = ['product_id', 'code', 'price', 'quantity'];
+
+    public function attributeOptions(): BelongsToMany
+    {
+        return $this->belongsToMany(AttributeOption::class, 'attribute_option_skus', 'sku_id', 'attribute_option_id')
+            ->withPivot('id');
+    }
 }
